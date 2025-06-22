@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Universal AI – Chat</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+  <style>
+    body {
+      background: #0f0f1a;
+      color: #e0e0ff;
+      padding: 2rem;
+    }
+    .chat-box {
+      background: #1a1a2e;
+      border-radius: 12px;
+      padding: 1rem;
+      height: 400px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+    .message {
+      margin-bottom: 1rem;
+    }
+    .user {
+      color: #9df;
+    }
+    .ai {
+      color: #0ff;
+    }
+    .tools {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h2 style="text-align:center; color:#00ffff;">Universal AI – Ask the Universe</h2>
+    <form id="agentForm">
+      <fieldset>
+        <legend>Select Agents</legend>
+        <label><input type="checkbox" name="agents" value="Nova" checked /> Nova</label>
+        <label><input type="checkbox" name="agents" value="Athena" /> Athena</label>
+        <label><input type="checkbox" name="agents" value="Lex" /> Lex</label>
+        <label><input type="checkbox" name="agents" value="Quanta" /> Quanta</label>
+        <label><input type="checkbox" name="agents" value="Mylo" /> Mylo</label>
+        <label><input type="checkbox" name="agents" value="Verity" /> Verity</label>
+        <label><input type="checkbox" name="agents" value="Ekon" /> Ekon</label>
+      </fieldset>
+      <div class="tools">
+        <button type="button" onclick="useMic()">🎤 Speak</button>
+        <button type="button" onclick="inspire()">🎲 Inspire Me</button>
+      </div>
+      <input type="text" id="userInput" placeholder="Ask a question..." required />
+      <button type="submit">Send</button>
+    </form>
+    <div class="chat-box" id="chatBox"></div>
+  </main>
+
+  <script>
+    const chatBox = document.getElementById("chatBox");
+    const input = document.getElementById("userInput");
+    const inspirePrompts = [
+      "What is the meaning of intelligence?",
+      "How is AI used in space exploration?",
+      "What’s the smartest way to learn programming?",
+      "Explain time dilation like I’m 12.",
+      "Will AI surpass human creativity?",
+      "What is the future of interstellar trade?"
+    ];
+
+    function inspire() {
+      const prompt = inspirePrompts[Math.floor(Math.random() * inspirePrompts.length)];
+      input.value = prompt;
+    }
+
+    function useMic() {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = "en-US";
+      recognition.start();
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        input.value = transcript;
+      };
+    }
+
+    document.getElementById("agentForm").onsubmit = async function (e) {
+      e.preventDefault();
+      const text = input.value;
+      const agents = Array.from(document.querySelectorAll("input[name='agents']:checked")).map(el => el.value);
+      input.value = "";
+      chatBox.innerHTML += `<div class='message user'>You: ${text}</div>`;
+      for (const agent of agents) {
+        chatBox.innerHTML += `<div class='message ai'><strong>${agent} is thinking...</strong></div>`;
+      }
+      chatBox.scrollTop = chatBox.scrollHeight;
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Universal AI</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css" />
+  <style>
+    body {
+      background: radial-gradient(ellipse at center, #0f0f1a 0%, #000000 100%);
+      color: #e0e0ff;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    h1 {
+      font-size: 3rem;
+      color: #00ffff;
+      text-shadow: 0 0 15px #00ffff99;
+    }
+    .cta-buttons {
+      margin-top: 2rem;
+    }
+    .cta-buttons a {
+      margin: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Universal AI</h1>
+    <p>Enter the Intelligence Core of the Universe</p>
+    <div class="cta-buttons">
+      <a href="chat.html" class="contrast" role="button">Enter as Guest</a>
+      <a href="#" class="secondary" role="button" onclick="alert('Google Login coming soon via Firebase.')">Sign in with Google</a>
+    </div>
+  </main>
+</body>
+</html>
